@@ -1,0 +1,170 @@
+import { computed, ref } from 'vue'
+
+export type Locale = 'zh' | 'en'
+export type Bilingual = readonly [zh: string, en: string]
+export const languageNames = { zh: '中文', en: 'English' } as const
+
+const languageKey = 'grace-church.language'
+function savedLanguage(): Locale | null {
+  const saved = uni.getStorageSync(languageKey)
+  return saved === 'zh' || saved === 'en' ? saved : null
+}
+
+export const locale = ref<Locale>(savedLanguage() ?? 'zh')
+export const hasLanguage = () => savedLanguage() !== null
+export const alternateLocale = computed<Locale>(() => locale.value === 'zh' ? 'en' : 'zh')
+
+export function setLocale(value: Locale) {
+  uni.setStorageSync(languageKey, value)
+  locale.value = value
+}
+
+export const localize = (text: Bilingual, language = locale.value) => text[language === 'zh' ? 0 : 1]
+
+const messages = {
+  churchFamily: ['教会之家', 'Church Family'],
+  welcome: ['欢迎来到教会之家', 'Welcome to Church Family'],
+  chooseLanguage: ['请选择界面语言', 'Select your language'],
+  getStarted: ['开始使用', 'Get started'],
+  together: ['一起敬拜 · 一起成长', 'Worship together · Grow together'],
+  home: ['首页', 'Home'],
+  members: ['会员', 'Members'],
+  groups: ['小组', 'Groups'],
+  resources: ['资料', 'Resources'],
+  more: ['更多', 'More'],
+  welcomeHome: ['平安，欢迎回家', 'Peace, welcome home'],
+  today: ['今天', 'Today'],
+  todaysEvent: ['今日活动', 'Today’s event'],
+  noEvents: ['今天没有安排活动。', 'There are no events today.'],
+  checkedInCount: ['{count} 人已签到', '{count} checked in'],
+  memberLogin: ['老教友登录', 'Existing member'],
+  loginAndCheckIn: ['登录并签到', 'Log in & check in'],
+  memberCheckIn: ['会员签到', 'Member check-in'],
+  guestRegistration: ['新朋友登记', 'New friend'],
+  registerAndCheckIn: ['登记并签到', 'Register & check in'],
+  quickServices: ['常用服务', 'Quick services'],
+  notices: ['通知中心', 'Notices'],
+  todaysNotices: ['今日通知', 'Today’s notices'],
+  bibleResources: ['圣经资料', 'Bible resources'],
+  giving: ['奉献公示', 'Giving & budget'],
+  library: ['教会书库', 'Church library'],
+  partners: ['友好教会', 'Partner churches'],
+  viewAll: ['全部查看', 'View all'],
+  checkIns: ['签到人次', 'Check-ins'],
+  loading: ['加载中…', 'Loading…'],
+  retry: ['重试', 'Retry'],
+  empty: ['暂无内容。', 'There’s nothing here yet.'],
+  login: ['会员登录', 'Member sign-in'],
+  signIn: ['登录', 'Sign in'],
+  signedOut: ['当前未登录', 'You’re signed out'],
+  signedIn: ['已登录', 'Signed in'],
+  demoAccountActive: ['已登录演示会员账号', 'Signed in as the demo member'],
+  signOut: ['退出登录', 'Sign out'],
+  signedOutDone: ['已退出登录', 'Signed out'],
+  demo: ['本地演示', 'Local demo'],
+  demoAccount: ['使用固定的虚构会员账号登录。', 'Sign in with a fictional member account.'],
+  demoSignIn: ['使用演示会员登录', 'Sign in as demo member'],
+  wechatSignIn: ['使用微信登录', 'Sign in with WeChat'],
+  signingIn: ['正在登录…', 'Signing in…'],
+  signInForProfile: ['登录后可查看您的会员档案。', 'Sign in to see your member profile.'],
+  profile: ['我的会员档案', 'My member profile'],
+  memberNumber: ['会员编号', 'Member number'],
+  name: ['姓名', 'Name'],
+  gender: ['性别', 'Gender'],
+  age: ['年龄', 'Age'],
+  birthday: ['生日', 'Birthday'],
+  baptism: ['是否受洗', 'Baptized'],
+  baptismDate: ['受洗日期', 'Baptism date'],
+  role: ['职务', 'Ministry role'],
+  unlinked: ['该账号尚未关联会员档案，请联系教会。', 'Contact the church to link a member profile to this account.'],
+  eventCheckIn: ['活动签到', 'Event check-in'],
+  attendance: ['本场签到统计', 'Session attendance'],
+  memberAttendees: ['会员', 'Members'],
+  guestAttendees: ['新朋友', 'New friends'],
+  total: ['总人数', 'Total'],
+  checkIn: ['确认签到', 'Confirm check-in'],
+  checkingIn: ['正在提交…', 'Submitting…'],
+  checkInComplete: ['签到成功，愿你平安！', 'Checked in. Peace be with you!'],
+  alreadyCheckedIn: ['本场已签到。', 'You’re already checked in for this session.'],
+  checkedInAt: ['签到时间', 'Checked in at'],
+  window: ['签到时段', 'Check-in window'],
+  windowClosed: ['本场签到已结束。', 'Check-in has closed for this session.'],
+  windowUpcoming: ['本场签到尚未开始。', 'Check-in hasn’t opened yet.'],
+  guestIntro: ['请填写本场签到所需信息。', 'Enter your details to check in for this session.'],
+  demoGuestIntro: ['请使用虚构资料。姓名和联系方式仅用于本次表单校验。', 'Use fictional details. Your name and contact are used only to validate this form.'],
+  fillExample: ['填写演示资料', 'Fill with sample details'],
+  demoGuestName: ['林晓', 'Alex Lin'],
+  contact: ['联系方式', 'Contact'],
+  namePlaceholder: ['请输入姓名', 'Enter your name'],
+  contactPlaceholder: ['邮箱或电话号码', 'Email or phone number'],
+  firstVisit: ['是否首次参加', 'Is this your first visit?'],
+  yes: ['是', 'Yes'],
+  no: ['否', 'No'],
+  guestNameRequired: ['请输入姓名。', 'Enter a name.'],
+  guestContactInvalid: ['请输入有效的邮箱或电话号码。', 'Enter a valid email or phone number.'],
+  guestFirstRequired: ['请选择是否首次参加。', 'Select whether this is your first visit.'],
+  backToEvent: ['查看活动详情', 'View event details'],
+  smallGroups: ['小组分布', 'Small groups'],
+  allAreas: ['全部地区', 'All areas'],
+  leader: ['组长', 'Leader'],
+  meetingPlace: ['集合地点', 'Meeting place'],
+  reading: ['读经进度', 'Reading progress'],
+  groupEmpty: ['该地区暂无可查看的小组。', 'There are no visible groups in this area.'],
+  membersOnly: ['会员可见', 'Members only'],
+  publiclyVisible: ['公开', 'Public'],
+  bilingual: ['中英双语', 'Chinese & English'],
+  chinese: ['中文', 'Chinese'],
+  english: ['英文', 'English'],
+  old: ['旧约', 'Old Testament'],
+  new: ['新约', 'New Testament'],
+  all: ['全部', 'All'],
+  allBooks: ['全部经卷', 'All books'],
+  allTypes: ['全部类型', 'All types'],
+  audio: ['圣经音频', 'Bible audio'],
+  text: ['文字圣经', 'Bible text'],
+  video: ['讲道视频', 'Sermon video'],
+  testimony: ['见证事迹', 'Testimony'],
+  resourceEmpty: ['该筛选条件下暂无资料。', 'No resources match these filters.'],
+  resourceDetail: ['资料详情', 'Resource details'],
+  play: ['播放', 'Play'],
+  pause: ['暂停', 'Pause'],
+  paused: ['已暂停', 'Paused'],
+  playing: ['正在播放', 'Playing'],
+  audioLoading: ['正在加载音频…', 'Loading audio…'],
+  audioError: ['暂时无法播放，请重试。', 'Audio couldn’t play. Try again.'],
+  audioEnded: ['播放结束', 'Playback finished'],
+  audioProgress: ['音频进度', 'Audio progress'],
+  sermon: ['讲道', 'Sermon'],
+  youth: ['青年活动', 'Youth'],
+  volunteer: ['志愿者', 'Volunteers'],
+  birthdayNotice: ['生日祝福', 'Birthdays'],
+  prayer: ['代祷关怀', 'Prayer & care'],
+  special: ['临时活动', 'Special events'],
+  noticeDetail: ['通知详情', 'Notice details'],
+  noticesEmpty: ['这个分类暂无通知。', 'There are no notices in this category.'],
+  moreServices: ['更多服务', 'More services'],
+  account: ['账号', 'Account'],
+  language: ['界面语言', 'Language'],
+  settings: ['应用设置', 'App settings'],
+  access: ['权限管理', 'Access control'],
+  comingSoon: ['尚未开放', 'Coming soon'],
+  featureUnavailable: ['此功能尚未开放。', 'This feature isn’t available yet.'],
+  support: ['联系教会', 'Contact the church'],
+  signInRequired: ['请登录后继续。', 'Sign in to continue.'],
+  sessionExpired: ['登录已过期，请重新登录。', 'Your session expired. Sign in again.'],
+  forbidden: ['您暂无权限查看或执行此操作。', 'You don’t have access to this content or action.'],
+  missing: ['未找到此内容，可能已下架或过期。', 'This content is unavailable or has expired.'],
+  network: ['网络连接异常，请检查网络后重试。', 'Check your connection and try again.'],
+  configError: ['服务尚未配置，请联系管理员。', 'The service hasn’t been configured. Contact an administrator.'],
+  guestPassRequired: ['请使用教会提供的活动链接进入。', 'Open the event link provided by the church.'],
+  unknown: ['暂时无法完成操作，请重试。', 'Something went wrong. Try again.'],
+} as const satisfies Record<string, Bilingual>
+
+export type MessageKey = keyof typeof messages
+export const messageIn = (key: MessageKey, language: Locale) => localize(messages[key], language)
+
+export function t(key: MessageKey, params: Record<string, string | number> = {}) {
+  return localize(messages[key]).replace(/\{(\w+)\}/g, (match, name: string) =>
+    name in params ? String(params[name]) : match,
+  )
+}

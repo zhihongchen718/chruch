@@ -1,0 +1,34 @@
+{
+  "pages": [
+    { "path": "pages/welcome/index", "style": { "navigationBarTitleText": "教会之家" } },
+    { "path": "pages/home/index", "style": { "navigationBarTitleText": "教会之家", "navigationBarBackgroundColor": "#285a4b", "navigationBarTextStyle": "white" } },
+    { "path": "pages/members/index", "style": { "navigationBarTitleText": "会员" } },
+    { "path": "pages/groups/index", "style": { "navigationBarTitleText": "小组" } },
+    { "path": "pages/resources/index", "style": { "navigationBarTitleText": "资料" } },
+    { "path": "pages/more/index", "style": { "navigationBarTitleText": "更多" } },
+    { "path": "pages/auth/index", "style": { "navigationBarTitleText": "会员登录" } },
+    { "path": "pages/events/detail", "style": { "navigationBarTitleText": "活动签到" } },
+    { "path": "pages/events/guest-checkin", "style": { "navigationBarTitleText": "新朋友登记" } },
+    { "path": "pages/resources/detail", "style": { "navigationBarTitleText": "资料详情" } },
+    { "path": "pages/notices/index", "style": { "navigationBarTitleText": "通知中心" } },
+    { "path": "pages/notices/detail", "style": { "navigationBarTitleText": "通知详情" } }
+  ],
+  "globalStyle": {
+    "navigationBarBackgroundColor": "#fbf9f3",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#fbf9f3"
+  },
+  "tabBar": {
+    "color": "#61766b",
+    "selectedColor": "#316b58",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "white",
+    "list": [
+      { "pagePath": "pages/home/index", "text": "首页", "iconPath": "static/icons/home.png", "selectedIconPath": "static/tabs/home.png" },
+      { "pagePath": "pages/members/index", "text": "会员", "iconPath": "static/icons/members.png", "selectedIconPath": "static/tabs/members.png" },
+      { "pagePath": "pages/groups/index", "text": "小组", "iconPath": "static/icons/groups.png", "selectedIconPath": "static/tabs/groups.png" },
+      { "pagePath": "pages/resources/index", "text": "资料", "iconPath": "static/icons/resources.png", "selectedIconPath": "static/tabs/resources.png" },
+      { "pagePath": "pages/more/index", "text": "更多", "iconPath": "static/icons/more.png", "selectedIconPath": "static/tabs/more.png" }
+    ]
+  }
+}

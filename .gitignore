@@ -1,0 +1,5 @@
+node_modules/
+dist/
+*.local
+*.log
+project.private.config.json
