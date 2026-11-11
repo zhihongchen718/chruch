@@ -40,6 +40,7 @@ const messages = {
   memberLogin: ['老教友登录', 'Existing member'],
   loginAndCheckIn: ['登录并签到', 'Log in & check in'],
   memberCheckIn: ['会员签到', 'Member check-in'],
+  homeGuestRegistration: ['新教友登记', 'New friend'],
   guestRegistration: ['新朋友登记', 'New friend'],
   registerAndCheckIn: ['登记并签到', 'Register & check in'],
   quickServices: ['常用服务', 'Quick services'],

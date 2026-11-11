@@ -64,7 +64,7 @@ onShow(load)
             <text v-if="!session" class="button-caption">{{ t('loginAndCheckIn') }}</text>
           </button>
           <button class="btn btn-secondary" hover-class="press" @tap="openPage(guestRoute(event.id))">
-            {{ t('guestRegistration') }}
+            {{ t('homeGuestRegistration') }}
             <text class="button-caption">{{ t('registerAndCheckIn') }}</text>
           </button>
         </view>
